@@ -7,21 +7,21 @@ pipeline {
     }  
   
     environment {
-        AWS_REGION     = 'ap-south-1'
-        ECR_REPOSITORY = 'jenkins-migration-demo'
+        AWS_REGION     = 'eu-north-1'
+        ECR_REPOSITORY = 'migration-pipeline-reg'
         IMAGE_TAG      = "${BUILD_NUMBER}"
         APP_PORT       = '8081'
     }
 
     stages {
 
-        stage('Checkout') {
+        stage('Git Checkout') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/rushikeshsatwadhar/Migration-Demo-Project.git'
             }
         }
 
-        stage('Test') {
+        stage('Unit Test') {
             steps {
                 sh '''
                     echo "Running application tests..."
